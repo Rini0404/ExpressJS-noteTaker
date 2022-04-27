@@ -1,0 +1,23 @@
+htmlRouter.post('/', (req, res) => {
+  // Log that a POST request was received
+  console.info(`${req.method} request received to submit feedback`);
+
+const { title, text, id } = red.body;
+if (title && text && id) {
+  const sample = { 
+    title, 
+      text, 
+      text_id: uuid(),
+  };
+  readAndAppend(sample, './db/htmlRoutes.js');
+
+  const response = {
+    status: 'success',
+    body: sample,
+  };
+  res.json(response);
+  } else{
+  res.json('ERROR')
+}
+
+});

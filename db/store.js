@@ -1,30 +1,52 @@
 // TODO Require thr util and fs needed
-
-
-
-
-// TODO Util is a built in feature of node like fs
 const util = require('util');
 const fs = require('fs');
 
 const uuidv1 = require('uuidv1');
 
-// writeTofile
-// readToFile
+// TODO Util is a built in feature of node like fs
+
+const writeTofile = util.promisify(fs.writeFile);
+const readToFile = util.promisify(fs.readFile);
 // TODO Req the UUID/v1 package in your package.json
 class Store {
   read(){
+    return readToFile('./db.json', 'utf8');
 
   }
-  write(){
 
+
+  write(){
+    // readable
+    return writeTofile('./db.json', JSON.stringify(note));
   }
 
   // get the notes 
   // add the notes to the notes
   // can add delete 
+  getNotes() {  
+    return this.read().then((notes) => {
+      let createdNote; 
+        if (createdNote = [].concat(JSON.parse(notes))) {
+          return createdNote;
+      } else {
+        return createdNote = [];
+      }
+    });
+  }
+
+  postNotes(note) {
+    const {title, text} = note;
+
+    const newNote = {title, text, id: uuidv1()};
+        // write all updated notes and return the new notes
+
+  }
+  
+  // remove/delete notes 
+  // filter out of array of notes and delete specific notes
+
+  
 
 }
-
-
 module.exports = new Store;

@@ -3,11 +3,11 @@ const fs = require('fs');
 const path = require('path');
 const everyNote = require('./db/db.json');
 
-
+const apiRoutes = require('./routes/apiRoutes');
+const htmlRoutes = require('./routes/htmlRoutes');
 
 // TODO: add routes for our api/html
-// const apiRoutes = require('./routes/apiRoutes');
-// const htmlRoutes = require('./routes/htmlRoutes');
+
 // app.use("/", htmlRoutes);
 // initialize app and create port 
 const app = express();
@@ -24,17 +24,17 @@ app.get('/api/notes', (req, res) => {
 
 
 
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, './public/index.html'))
-});
-app.get('/notes', (req, res) => {
-  res.sendFile(path.join(__dirname, './public/notes.html'));
-});
+// app.get('/', (req, res) => {
+//   res.sendFile(path.join(__dirname, './public/index.html'))
+// });
+// app.get('/notes', (req, res) => {
+//   res.sendFile(path.join(__dirname, './public/notes.html'));
+// });
 
-// * is a catch all
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, './public/index.html'))
-});
+// // * is a catch all
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(__dirname, './public/index.html'))
+// });
 
 
 const createNote = (body, notesArr) => {
