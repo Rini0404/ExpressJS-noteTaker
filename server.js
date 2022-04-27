@@ -1,5 +1,5 @@
 const express = require('express');
-const { fsyncSync } = require('fs');
+const fs = require('fs');
 const path = require('path');
 const everyNote = require('./db/db.json');
 
@@ -24,17 +24,18 @@ app.get('/api/notes', (req, res) => {
 
 
 
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, './public/index.html'))
+});
+app.get('/notes', (req, res) => {
+  res.sendFile(path.join(__dirname, './public/notes.html'));
+});
 
 // * is a catch all
-app.get('*', (rep, res) => {
-  res.sendFile(path.join(__dirname, '/Dev/public/index.html'))
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, './public/index.html'))
 });
-app.get('/', (rep, res) => {
-  res.sendFile(path.join(__dirname, '/Dev/public/index.html'))
-});
-app.get('/notes', (rep, res) => {
-  res.sendFile(path.join(__dirname, '/Dev/public/notes.html'));
-});
+
 
 const createNote = (body, notesArr) => {
   const newerNotes = body;
@@ -46,7 +47,7 @@ const createNote = (body, notesArr) => {
     notesArr.push[0]++;
   
   notesArr.push(newerNotes);
-    fsyncSync.writeFileSync(path.join(__dirname, './db/db.json'. JSON.stringify(notesArr, null, 4)));
+    fs.writeFileSync(path.join(__dirname, './db/db.json', JSON.stringify(notesArr, null, 4)));
   return newerNotes;
 }
 app.post('/api/notes', (req, res) => {
@@ -54,4 +55,4 @@ app.post('/api/notes', (req, res) => {
     res.json(newerNotes);
 })
 // start the server on the port 
-app.listen(PORT, () => console.log(`This port is listening at ${PORT}`));
+app.listen(PORT, () => console.log(`This port is listening at http://localhost:${PORT}`));
