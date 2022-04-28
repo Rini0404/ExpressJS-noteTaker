@@ -2,7 +2,7 @@
 const util = require('util');
 const fs = require('fs');
 
-const uuidv1 = require('uuidv1');
+const uuid = require('uuid');
 
 // TODO Util is a built in feature of node like fs
 
@@ -38,15 +38,16 @@ class Store {
   postNotes(note) {
     const {title, text} = note;
 
-    const newNote = {title, text, id: uuidv1()};
-        // write all updated notes and return the new notes
-
+    const newNote = {title, text, id: uuid()};
+      // write all updated notes and return the new notes
+    return this.getNotes()
+      .then((notes) => [...notes, newNote])
+        .then((updatedNotes) => this.write(updatedNotes))
+          .then(() => newNote);
+    
   }
-  
-  // remove/delete notes 
   // filter out of array of notes and delete specific notes
-
   
-
+  
 }
-module.exports = new Store;
+module.exports = new Store();

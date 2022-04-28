@@ -21,3 +21,25 @@ if (title && text && id) {
 }
 
 });
+======================================================
+
+
+// const createNote = (body, notesArr) => {
+//   const newerNotes = body;
+//     if(!Array.isArray(notesArr))    
+//     notesArr = [];
+//       if (notesArr.length === 0)
+//         notesArr.push(0);
+//   body.id = notesArr[0];
+//     notesArr.push[0]++;
+  
+//   notesArr.push(newerNotes);
+//     fs.writeFileSync(path.join(__dirname, './db/db.json', JSON.stringify(notesArr, null, 4)));
+//   return newerNotes;
+// }
+===========================================================
+// router.get ('/', (req, res) => {
+//   console.log(`${req.method} Received!`);
+//     readFromFile('./htmlRoutes.js').then((data) =>res.json(JSON.parse(data)));
+
+// });

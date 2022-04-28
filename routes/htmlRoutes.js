@@ -12,11 +12,7 @@ router.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, './public/index.html'))
 });
 
-// router.get ('/', (req, res) => {
-//   console.log(`${req.method} Received!`);
-//     readFromFile('./htmlRoutes.js').then((data) =>res.json(JSON.parse(data)));
 
-// });
 
 // Todo export thr router
 
