@@ -18,15 +18,15 @@
 # 🎟Title
 ## Note Taker using Express JS!
 # 🖼Picture
-## n/a
+## ![Uploading Screen Shot 2022-04-29 at 7.14.54 PM.png…]()
 # 📖Description
 ## Create an appp using Express Js to write and save notes. Usin Backend methods, data will save to a JSON File.
 # 🔎My Repo
 ## [Repo](My repo!: https://github.com/Rini0404/ExpressJS-noteTaker)
 # 🖇Live Link
-## n/a
+## https://drive.google.com/file/d/1QR94X8Yhz3qviLqmMMbsbm_GKDaPdehd/view
 # 📌installation
-## n/a
+## NPM i 
 # 📝Steps
 ## Hit "Get started" and type your notes! Hit Save, then add! If you choose to delete hit the trash can icon!
 # 📟Languages
