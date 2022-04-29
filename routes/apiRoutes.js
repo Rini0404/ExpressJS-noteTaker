@@ -1,51 +1,42 @@
-// TODO Require the router and db  items needed 
-const router = require('express').Router();
+// TODO Require the router and db  items needed
+const fs = require("fs");
+const path = require("path");
+const router = require("express").Router();
 // const store = require('../db/store');
 
-const { readFromFile, readAndAppend, writeTofile } = require('../helpers/fsUtils')
-const uuid = require('../helpers/uuid');
+let store = eval(require("../db/db.json"));
 
+const {
+  readFromFiles,
+  readAndAppend,
+  writeTofile,
+} = require("../helpers/fsUtils");
+const uuid = require("../helpers/uuid");
 
-router.get('/notes', (req, res) => {
-  readFromFile("/db/db.json").then((data) => 
-  res.json(JSON.parse(data)));
+router.get("/notes", (req, res) => {
+  res.json(store);
+  // readFromFiles("../db/db.json").then((data) =>
+  // res.json(JSON.parse(data)));
 });
 
 // posting
-router.post('/notes', (req, res) => {
+router.post("/notes", (req, res) => {
   console.log(req.body);
-
-  const { title, text } = req.body;
-    if (req.body) {
-      const newNote = {
-        title,
-          text,
-            id: uuid(),
-      };
-      readAndAppend(newNote, '../db/db.json' );
-        res.json('Your note was added!')
-
-    } else {
-      res.err('Something is wrong....')
-    }
+  store.push(req.body);
+  fs.writeFileSync(path.join(__dirname, "../db/db.json"), JSON.stringify(store), () =>
+    console.log("Done!!!")
+  );
+  res.json(store);
 });
-
 
 // delete logic
-router.get('/notes/:id', (req, res) =>{
-  const idNote = req.params.id;
-    readFromFile('../db/db.json').then((data) =>{
-      return JSON.parse(data);
-    })
-
-    .then((data) =>{
-      writeTofile('../db/db.json', data.filter((note) => note.id !== idNote));
-        res.json('Deleted Note!')
-    });
+router.delete("/notes/:title", (req, res) => {
+  const title = req.params.title;
+  store = store.filter((obj) => obj.title != title);
+  console.log('Data:',store);
+  fs.writeFileSync(path.join(__dirname,"../db/db.json"), JSON.stringify(store), () => console.log('Done!!!'));
+  res.json(store);
 });
-
-
-
 
 // router.get('/notes', (req, res) => {
 //   console.log('getting all notes')
@@ -66,5 +57,4 @@ router.get('/notes/:id', (req, res) =>{
 //     })
 // });
 
-
-module.exports = router; 
+module.exports = router;
