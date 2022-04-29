@@ -2,23 +2,20 @@
 const util = require('util');
 const fs = require('fs');
 
-const { v1: uuidv1 } = require('uuid');
+// const uuidv1 = require('uuid').v1
 
-// TODO Util is a built in feature of node like fs
-
-const writeTofile = util.promisify(fs.writeFile);
-const readToFile = util.promisify(fs.readFile);
-// TODO Req the UUID/v1 package in your package.json
+const readFileAsync = util.promisify(fs.readFile);
+const writeFileAsync = util.promisify(fs.writeFile);
 class Store {
   read(){
-    return readToFile('./db.json', 'utf8');
+    return readFileAsync ('db.json', 'utf8');
 
   }
 
 
-  write(){
+  write(note){
     // readable
-    return writeTofile('./db.json', JSON.stringify(note));
+    return writeFileAsync('db.json', JSON.stringify(note));
   }
 
   // get the notes 
@@ -27,18 +24,18 @@ class Store {
   getNotes() {  
     return this.read().then((notes) => {
       let createdNote; 
-        if (createdNote = [].concat(JSON.parse(notes))) {
-          return createdNote;
-      } else {
-        return createdNote = [];
+        try {createdNote = [].concat(JSON.parse(notes))} 
+          
+      catch(err) {
+        createdNote = [];
       }
+      return createdNote;
     });
   }
 
   postNotes(note) {
     const {title, text} = note;
-
-    const newNote = {title, text, id: uuidv1()};
+    const newNote = {title, text};
       // write all updated notes and return the new notes
     return this.getNotes()
       .then((notes) => [...notes, newNote])

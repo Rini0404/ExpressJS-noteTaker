@@ -1,8 +1,8 @@
 // TODO Require the router and db  items needed 
 const router = require('express').Router();
 const store = require('../db/store');
-
-// TODO set up and get/post/delete methods as response to the database
+// const uuid = require('../helpers/uuid');
+// const { readFiles  , readAndAppend, writeFile } = require('../helpers/fsUtils')
 
 router.get('/notes', (req, res) => {
   store
@@ -18,7 +18,7 @@ router.get('/notes', (req, res) => {
 
 router.post ('/notes', (req, res) => {
   store
-    .postNotes()
+    .postNotes(req.body)
     .then((note) => {
       res.json(note);
     })
@@ -26,9 +26,6 @@ router.post ('/notes', (req, res) => {
       res.status(500).json(err);
     })
 });
-
-
-// Todo export thr router
 
 
 module.exports = router; 
