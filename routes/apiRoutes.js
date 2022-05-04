@@ -2,7 +2,7 @@
 const fs = require("fs");
 const path = require("path");
 const router = require("express").Router();
-// const store = require('../db/store');
+
 
 let store = eval(require("../db/db.json"));
 
@@ -15,8 +15,7 @@ const uuid = require("../helpers/uuid");
 
 router.get("/notes", (req, res) => {
   res.json(store);
-  // readFromFiles("../db/db.json").then((data) =>
-  // res.json(JSON.parse(data)));
+
 });
 
 // posting
@@ -37,24 +36,5 @@ router.delete("/notes/:title", (req, res) => {
   fs.writeFileSync(path.join(__dirname,"../db/db.json"), JSON.stringify(store), () => console.log('Done!!!'));
   res.json(store);
 });
-
-// router.get('/notes', (req, res) => {
-//   console.log('getting all notes')
-//   readFiles('../helpers/fsUtils.js')
-//     .then((err, notes) => {
-//       res.json(notes)
-//     })
-//     });
-
-// router.post ('/notes', (req, res) => {
-//   store
-//     .postNotes(req.body)
-//     .then((note) => {
-//       res.json(note);
-//     })
-//     .catch (err => {
-//       res.status(500).json(err);
-//     })
-// });
 
 module.exports = router;
